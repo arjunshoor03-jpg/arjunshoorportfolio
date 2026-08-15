@@ -228,10 +228,17 @@
   // INTERACTIVE UI FEATURES
   // ==========================================================================
 
-  // Portfolio Filtering
+  // Portfolio Filtering & Video Modal Player
   const filterButtons = document.querySelectorAll('.filter-btn');
   const projectCards = document.querySelectorAll('.project-card');
+  const videoModal = document.getElementById('video-modal');
+  const modalVideoPlayer = document.getElementById('modal-video-player');
+  const modalBackdrop = document.getElementById('modal-backdrop');
+  const modalCloseBtn = document.getElementById('modal-close-btn');
+  const modalTitle = document.getElementById('modal-title');
+  const modalCategory = document.getElementById('modal-category');
 
+  // Filter Tabs
   filterButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       filterButtons.forEach(b => b.classList.remove('active'));
@@ -251,6 +258,65 @@
       // Update scroll bounds
       updateScrollProgress();
     });
+  });
+
+  // Open Video Modal on Card Click
+  function openVideoModal(videoSrc, title, category) {
+    if (!videoModal || !modalVideoPlayer) return;
+
+    modalVideoPlayer.src = videoSrc;
+    if (modalTitle) modalTitle.textContent = title || 'Video Preview';
+    if (modalCategory) modalCategory.textContent = category ? category.toUpperCase() : 'SHORT-FORM';
+
+    videoModal.classList.add('active');
+    videoModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+
+    // Play video with audio
+    modalVideoPlayer.currentTime = 0;
+    const playPromise = modalVideoPlayer.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Autoplay policy fallback
+      });
+    }
+  }
+
+  function closeVideoModal() {
+    if (!videoModal || !modalVideoPlayer) return;
+
+    modalVideoPlayer.pause();
+    modalVideoPlayer.src = '';
+    videoModal.classList.remove('active');
+    videoModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  // Attach card click listeners
+  projectCards.forEach(card => {
+    card.addEventListener('click', () => {
+      const videoSrc = card.getAttribute('data-video');
+      const title = card.getAttribute('data-title');
+      const category = card.getAttribute('data-category');
+      if (videoSrc) {
+        openVideoModal(videoSrc, title, category);
+      }
+    });
+  });
+
+  if (modalCloseBtn) {
+    modalCloseBtn.addEventListener('click', closeVideoModal);
+  }
+
+  if (modalBackdrop) {
+    modalBackdrop.addEventListener('click', closeVideoModal);
+  }
+
+  // Close modal on ESC key
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && videoModal && videoModal.classList.contains('active')) {
+      closeVideoModal();
+    }
   });
 
   // Copy Email to Clipboard
