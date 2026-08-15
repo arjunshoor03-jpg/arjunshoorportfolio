@@ -51,12 +51,15 @@ body {
   top: 0;
   left: 0;
   width: 100vw;
+  width: 100dvw;
   height: 100vh;
+  height: 100dvh;
   display: block;
   z-index: 0;
   pointer-events: none;
   background-color: #000;
   transform: translateZ(0);
+  -webkit-transform: translateZ(0);
   will-change: transform;
 }
 

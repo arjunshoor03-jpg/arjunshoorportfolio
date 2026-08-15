@@ -28,19 +28,23 @@
 
   // Stable High-DPI Canvas Sizing (Max DPR 2 for buttery mobile 60fps)
   let lastWindowWidth = 0;
-  let lastWindowHeight = 0;
+  let lastLockedHeight = 0;
 
   function resizeCanvas(force = false) {
     const width = window.innerWidth;
-    const height = window.innerHeight;
+    const isMobile = width <= 768;
+    
+    // On mobile, lock height to the primary viewport height to avoid URL-bar collapse jumps
+    const height = (isMobile && lastLockedHeight > 0 && !force && Math.abs(width - lastWindowWidth) < 20)
+      ? lastLockedHeight
+      : window.innerHeight;
 
-    // Avoid jitter on mobile when address bar collapses if width hasn't changed
-    if (!force && width === lastWindowWidth && Math.abs(height - lastWindowHeight) < 80) {
+    if (!force && width === lastWindowWidth && Math.abs(height - lastLockedHeight) < 10) {
       return;
     }
 
     lastWindowWidth = width;
-    lastWindowHeight = height;
+    lastLockedHeight = height;
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
