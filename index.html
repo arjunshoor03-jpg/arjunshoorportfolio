@@ -18,23 +18,36 @@
   <!-- Main Scrollable Content Overlay -->
   <div id="content-wrapper">
 
-    <!-- Navigation Header (Exact Reference Match) -->
-    <header class="navbar">
+    <!-- Navigation Header (Clean Responsive Alignment) -->
+    <header class="navbar" id="main-navbar">
       <div class="nav-container">
         <a href="#" class="nav-logo">WEBSITE PORTFOLIO</a>
         <nav class="nav-links">
-          <a href="#work">WORK</a>
-          <span class="nav-slash">/</span>
-          <a href="#about">ABOUT</a>
-          <span class="nav-slash">/</span>
-          <a href="#services">SERVICES</a>
-          <span class="nav-slash">/</span>
-          <a href="#contact">CONTACT</a>
-          <button class="nav-menu-btn" aria-label="Toggle menu">
+          <div class="nav-desktop-links">
+            <a href="#work">WORK</a>
+            <span class="nav-slash">/</span>
+            <a href="#about">ABOUT</a>
+            <span class="nav-slash">/</span>
+            <a href="#services">SERVICES</a>
+            <span class="nav-slash">/</span>
+            <a href="#contact">CONTACT</a>
+          </div>
+          <a href="#contact" class="nav-mobile-cta">LET'S TALK</a>
+          <button class="nav-menu-btn" id="nav-toggle-btn" aria-label="Toggle menu" aria-expanded="false">
             <span class="menu-bar"></span>
             <span class="menu-bar"></span>
           </button>
         </nav>
+      </div>
+
+      <!-- Mobile Slide-Down Drawer Menu -->
+      <div class="mobile-nav-drawer" id="mobile-nav-drawer">
+        <div class="mobile-drawer-inner">
+          <a href="#work" class="mobile-link"><span>01</span> WORK</a>
+          <a href="#about" class="mobile-link"><span>02</span> ABOUT</a>
+          <a href="#services" class="mobile-link"><span>03</span> SERVICES</a>
+          <a href="#contact" class="mobile-link"><span>04</span> CONTACT</a>
+        </div>
       </div>
     </header>
 

@@ -105,6 +105,7 @@ body {
   text-decoration: none;
   text-transform: uppercase;
   transition: opacity 0.2s ease;
+  white-space: nowrap;
 }
 
 .nav-logo:hover {
@@ -112,6 +113,12 @@ body {
 }
 
 .nav-links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.nav-desktop-links {
   display: flex;
   align-items: center;
   gap: 16px;
@@ -137,6 +144,10 @@ body {
   font-size: 0.78rem;
   font-weight: 400;
   user-select: none;
+}
+
+.nav-mobile-cta {
+  display: none;
 }
 
 .nav-menu-btn {
@@ -167,6 +178,19 @@ body {
   height: 1.5px;
   background-color: #ffffff;
   border-radius: 1px;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.nav-menu-btn.open .menu-bar:first-child {
+  transform: translateY(2.75px) rotate(45deg);
+}
+
+.nav-menu-btn.open .menu-bar:last-child {
+  transform: translateY(-2.75px) rotate(-45deg);
+}
+
+.mobile-nav-drawer {
+  display: none;
 }
 
 /* ==========================================================================
@@ -1011,32 +1035,124 @@ body {
     margin: 0 !important;
   }
 
-  /* Navbar on Mobile */
+  /* Navbar on Mobile: Zero Overlap & Crystal-Clear Separation */
   .navbar {
     padding: 14px 16px !important;
+    background: rgba(0, 0, 0, 0.88) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .nav-container {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+    gap: 12px !important;
   }
 
   .nav-logo {
-    font-size: 0.78rem !important;
+    font-size: 0.82rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.08em !important;
+    white-space: nowrap !important;
+    color: #ffffff !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Crucial: Hide inline text links to prevent header crowding */
+  .nav-desktop-links {
+    display: none !important;
   }
 
   .nav-links {
-    gap: 6px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    margin-left: auto !important;
   }
 
-  .nav-links a {
-    font-size: 0.7rem !important;
-  }
-
-  .nav-slash {
+  .nav-mobile-cta {
+    display: inline-flex !important;
+    align-items: center !important;
+    padding: 5px 12px !important;
     font-size: 0.68rem !important;
-    margin: 0 1px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.06em !important;
+    color: #ffffff !important;
+    background: var(--accent-red) !important;
+    border-radius: 20px !important;
+    text-decoration: none !important;
+    text-transform: uppercase !important;
+    box-shadow: 0 4px 12px var(--accent-red-glow) !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
   }
 
   .nav-menu-btn {
     width: 32px !important;
     height: 32px !important;
-    margin-left: 3px !important;
+    margin-left: 0 !important;
+    display: flex !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Mobile Slide-Down Drawer */
+  .mobile-nav-drawer {
+    display: block !important;
+    position: fixed !important;
+    top: 56px !important;
+    left: 0 !important;
+    width: 100% !important;
+    background: rgba(10, 10, 14, 0.97) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    padding: 0 16px !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+    transition: max-height 0.32s cubic-bezier(0.16, 1, 0.3, 1), padding 0.32s ease !important;
+    z-index: 99 !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.75) !important;
+  }
+
+  .mobile-nav-drawer.open {
+    max-height: 240px !important;
+    padding: 12px 16px 18px !important;
+  }
+
+  .mobile-drawer-inner {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+  }
+
+  .mobile-link {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 10px 14px !important;
+    font-family: var(--font-body) !important;
+    font-size: 0.88rem !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    text-decoration: none !important;
+    border-radius: 8px !important;
+    transition: background 0.2s ease !important;
+  }
+
+  .mobile-link:active,
+  .mobile-link:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+  }
+
+  .mobile-link span {
+    font-size: 0.72rem !important;
+    color: var(--accent-red) !important;
+    font-weight: 800 !important;
   }
 
   /* 1. Hero Section: Scaled Up Typography & Sized-Up Freelance Badge */

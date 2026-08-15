@@ -275,6 +275,37 @@
     });
   }
 
+  // Mobile Nav Drawer Toggle
+  const navToggleBtn = document.getElementById('nav-toggle-btn');
+  const mobileDrawer = document.getElementById('mobile-nav-drawer');
+  const mobileLinks = document.querySelectorAll('.mobile-link');
+
+  if (navToggleBtn && mobileDrawer) {
+    navToggleBtn.addEventListener('click', () => {
+      const isOpen = mobileDrawer.classList.toggle('open');
+      navToggleBtn.classList.toggle('open', isOpen);
+      navToggleBtn.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    // Close drawer automatically when a navigation link is clicked
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileDrawer.classList.remove('open');
+        navToggleBtn.classList.remove('open');
+        navToggleBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Close drawer when clicking outside
+    document.addEventListener('click', (e) => {
+      if (mobileDrawer.classList.contains('open') && !navToggleBtn.contains(e.target) && !mobileDrawer.contains(e.target)) {
+        mobileDrawer.classList.remove('open');
+        navToggleBtn.classList.remove('open');
+        navToggleBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
   // Event Listeners
   window.addEventListener('resize', resizeCanvas, { passive: true });
   window.addEventListener('scroll', updateScrollProgress, { passive: true });
