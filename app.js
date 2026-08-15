@@ -96,9 +96,9 @@
       offsetY = (canvasHeight - drawHeight) / 2;
     } else {
       // Mobile / Portrait view:
-      // Slightly scale subject image for mobile so it fits comfortably within screen bounds without oversized zoom
+      // Fixed constant medium-sized framing locked at 0.88 scale (no dynamic zoom in/out)
       const isMobile = window.innerWidth <= 768;
-      const scaleMultiplier = isMobile ? 0.94 : 1.0;
+      const scaleMultiplier = isMobile ? 0.88 : 1.0;
       
       drawHeight = canvasHeight * scaleMultiplier;
       drawWidth = drawHeight * imageAspect;

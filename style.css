@@ -965,7 +965,7 @@ body {
 
   /* Tighten vertical gaps between sections */
   .section {
-    padding: 38px 16px !important;
+    padding: 34px 12px !important;
     width: 100% !important;
     max-width: 100vw !important;
     box-sizing: border-box !important;
@@ -980,19 +980,19 @@ body {
 
   .section-tag-wrap,
   .section-header {
-    margin-bottom: 18px !important;
+    margin-bottom: 16px !important;
   }
 
   .section-heading {
-    font-size: clamp(1.8rem, 7.5vw, 2.3rem) !important;
-    margin-bottom: 6px !important;
+    font-size: clamp(1.65rem, 7vw, 2.1rem) !important;
+    margin-bottom: 4px !important;
     line-height: 1.05 !important;
   }
 
   .section-desc {
-    font-size: 0.86rem !important;
-    margin-bottom: 18px !important;
-    line-height: 1.5 !important;
+    font-size: 0.82rem !important;
+    margin-bottom: 16px !important;
+    line-height: 1.45 !important;
   }
 
   /* GPU-Accelerated Lag-Free Mobile Cards */
@@ -1002,7 +1002,6 @@ body {
     -webkit-backdrop-filter: none !important;
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
-    padding: 20px 16px !important;
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
@@ -1011,35 +1010,35 @@ body {
 
   /* Navbar on Mobile */
   .navbar {
-    padding: 14px 16px !important;
+    padding: 12px 14px !important;
   }
 
   .nav-logo {
-    font-size: 0.78rem !important;
+    font-size: 0.76rem !important;
   }
 
   .nav-links {
-    gap: 8px !important;
+    gap: 6px !important;
   }
 
   .nav-links a {
-    font-size: 0.7rem !important;
+    font-size: 0.68rem !important;
   }
 
   .nav-slash {
-    font-size: 0.68rem !important;
+    font-size: 0.65rem !important;
     margin: 0 1px !important;
   }
 
   .nav-menu-btn {
-    width: 32px !important;
-    height: 32px !important;
-    margin-left: 4px !important;
+    width: 30px !important;
+    height: 30px !important;
+    margin-left: 2px !important;
   }
 
   /* Hero Section: Scaled & Stacked for Mobile */
   .hero-section {
-    padding: 80px 16px 24px !important;
+    padding: 75px 14px 20px !important;
     min-height: 85vh !important;
     width: 100% !important;
     max-width: 100vw !important;
@@ -1050,7 +1049,7 @@ body {
     flex-direction: column !important;
     align-items: flex-start !important;
     justify-content: flex-start !important;
-    gap: 18px !important;
+    gap: 16px !important;
     padding: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
@@ -1064,96 +1063,94 @@ body {
   }
 
   .availability-pill {
-    padding: 6px 12px !important;
-    margin-bottom: 14px !important;
+    padding: 5px 10px !important;
+    margin-bottom: 12px !important;
   }
 
   .pill-text {
-    font-size: 0.72rem !important;
+    font-size: 0.68rem !important;
   }
 
   .hero-title {
-    font-size: clamp(2.6rem, 9.5vw, 3.5rem) !important;
-    margin-bottom: 10px !important;
+    font-size: clamp(2.4rem, 9vw, 3.2rem) !important;
+    margin-bottom: 8px !important;
   }
 
   .hero-subtitle {
-    font-size: 0.84rem !important;
-    line-height: 1.4 !important;
-    margin-bottom: 16px !important;
+    font-size: 0.8rem !important;
+    line-height: 1.35 !important;
+    margin-bottom: 14px !important;
   }
 
   .btn-view-work {
-    padding: 9px 20px !important;
-    font-size: 0.74rem !important;
+    padding: 8px 18px !important;
+    font-size: 0.72rem !important;
   }
 
   /* Freelance Projects Badge: Stacked neatly below hero text without overflow */
   .hero-right-badge {
     margin-right: 0 !important;
-    margin-top: 6px !important;
+    margin-top: 4px !important;
     align-self: flex-start !important;
     width: auto !important;
     max-width: 100% !important;
   }
 
   .hero-badge-card {
-    padding: 8px 14px !important;
+    padding: 7px 12px !important;
     border-radius: 12px !important;
     min-width: unset !important;
     min-height: unset !important;
-    max-width: calc(100vw - 32px) !important;
+    max-width: calc(100vw - 28px) !important;
     display: inline-flex !important;
     box-sizing: border-box !important;
   }
 
   .badge-label {
-    font-size: 0.6rem !important;
+    font-size: 0.58rem !important;
     margin-bottom: 1px !important;
   }
 
   .badge-title {
-    font-size: 0.82rem !important;
+    font-size: 0.8rem !important;
     gap: 3px !important;
   }
 
-  /* About Section: 1-Column Vertical Stacking */
+  /* About Section: Clean Layout on Mobile */
   .about-grid {
     display: grid !important;
     grid-template-columns: 1fr !important;
-    gap: 14px !important;
+    gap: 12px !important;
     width: 100% !important;
     max-width: 100% !important;
   }
 
-  .about-left-col,
-  .about-right-col {
-    width: 100% !important;
-    max-width: 100% !important;
+  .about-card {
+    padding: 16px 14px !important;
   }
 
   .about-text {
-    font-size: 0.9rem !important;
-    line-height: 1.5 !important;
+    font-size: 0.86rem !important;
+    line-height: 1.48 !important;
   }
 
   .quote-glow-box {
-    padding: 12px 14px !important;
+    padding: 10px 12px !important;
     margin: 4px 0 8px !important;
-    border-radius: 10px !important;
+    border-radius: 8px !important;
   }
 
   .quote-text {
-    font-size: 0.85rem !important;
-    line-height: 1.45 !important;
+    font-size: 0.82rem !important;
+    line-height: 1.4 !important;
   }
 
   .tools-label {
-    font-size: 0.7rem !important;
-    margin-bottom: 8px !important;
+    font-size: 0.68rem !important;
+    margin-bottom: 6px !important;
   }
 
-  /* Software Badges: 2-Column Clean Mobile Grid */
+  /* Software Badges: 2-Column Side-by-Side Bento Grid */
   .software-badges-grid {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
@@ -1162,149 +1159,188 @@ body {
   }
 
   .software-badge {
-    padding: 7px 10px !important;
+    padding: 6px 8px !important;
     border-radius: 10px !important;
-    font-size: 0.72rem !important;
-    gap: 7px !important;
+    font-size: 0.7rem !important;
+    gap: 6px !important;
     width: 100% !important;
     box-sizing: border-box !important;
   }
 
   .app-icon {
-    width: 24px !important;
-    height: 24px !important;
-    font-size: 0.72rem !important;
-    border-radius: 6px !important;
+    width: 22px !important;
+    height: 22px !important;
+    font-size: 0.68rem !important;
+    border-radius: 5px !important;
   }
 
   .app-icon svg {
-    width: 16px !important;
-    height: 16px !important;
+    width: 15px !important;
+    height: 15px !important;
   }
 
-  /* 2x2 Metric Stats Grid on Mobile */
+  /* 2x2 Metric Stats Bento Grid on Mobile */
   .stats-grid {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 10px !important;
+    gap: 8px !important;
     width: 100% !important;
   }
 
   .stat-card {
-    padding: 16px 12px !important;
-    min-height: 95px !important;
+    padding: 14px 10px !important;
+    min-height: 80px !important;
     width: 100% !important;
     box-sizing: border-box !important;
   }
 
   .stat-number {
-    font-size: 2rem !important;
-    margin-bottom: 3px !important;
+    font-size: 1.85rem !important;
+    margin-bottom: 2px !important;
   }
 
   .stat-label {
-    font-size: 0.72rem !important;
-    line-height: 1.25 !important;
+    font-size: 0.68rem !important;
+    line-height: 1.2 !important;
   }
 
-  /* What I Deliver: Single-Column Vertical Stacking */
+  /* 1. What I Deliver: 2-Column Side-by-Side Bento Grid */
   .services-grid {
     display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 14px !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
     width: 100% !important;
     max-width: 100% !important;
   }
 
   .service-card {
-    padding: 18px 16px !important;
-    border-radius: 16px !important;
+    padding: 14px 12px !important;
+    border-radius: 14px !important;
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    min-height: 180px !important;
   }
 
   .service-num {
-    font-size: 0.8rem !important;
+    font-size: 0.72rem !important;
     margin-bottom: 4px !important;
   }
 
   .service-title {
-    font-size: 1.15rem !important;
+    font-size: 0.92rem !important;
+    line-height: 1.25 !important;
     margin-bottom: 6px !important;
   }
 
   .service-desc {
-    font-size: 0.82rem !important;
-    line-height: 1.45 !important;
-    margin-bottom: 12px !important;
+    font-size: 0.72rem !important;
+    line-height: 1.35 !important;
+    margin-bottom: 8px !important;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .service-tags {
+    gap: 4px !important;
   }
 
   .service-tag {
-    font-size: 0.66rem !important;
-    padding: 3px 8px !important;
+    font-size: 0.6rem !important;
+    padding: 2px 6px !important;
+    border-radius: 8px !important;
   }
 
   .guarantee-bar {
-    padding: 12px 14px !important;
-    font-size: 0.8rem !important;
-    margin-top: 16px !important;
-    border-radius: 12px !important;
+    padding: 10px 12px !important;
+    font-size: 0.74rem !important;
+    margin-top: 14px !important;
+    border-radius: 10px !important;
     width: 100% !important;
     box-sizing: border-box !important;
   }
 
-  /* Selected Work: Single-Column Vertical Stacking */
+  /* 1. Selected Work: 2-Column Side-by-Side Bento Grid (Video Placeholders) */
   .portfolio-filters {
-    gap: 6px !important;
-    margin-bottom: 16px !important;
+    gap: 4px !important;
+    margin-bottom: 12px !important;
     display: flex !important;
     flex-wrap: wrap !important;
     justify-content: flex-start !important;
   }
 
   .filter-btn {
-    padding: 5px 10px !important;
-    font-size: 0.7rem !important;
-    border-radius: 14px !important;
+    padding: 4px 8px !important;
+    font-size: 0.66rem !important;
+    border-radius: 12px !important;
   }
 
   .portfolio-grid {
     display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 16px !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
     width: 100% !important;
     max-width: 100% !important;
   }
 
   .project-card {
-    border-radius: 16px !important;
+    border-radius: 14px !important;
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
+    overflow: hidden !important;
   }
 
   .project-thumbnail-wrap {
-    height: 180px !important;
+    height: 130px !important;
   }
 
   .project-info {
-    padding: 14px 14px !important;
+    padding: 10px 8px !important;
   }
 
   .project-title {
-    font-size: 1.08rem !important;
+    font-size: 0.86rem !important;
+    margin-bottom: 2px !important;
+    line-height: 1.2 !important;
   }
 
   .project-desc {
-    font-size: 0.8rem !important;
-    margin-bottom: 10px !important;
+    font-size: 0.7rem !important;
+    line-height: 1.3 !important;
+    margin-bottom: 6px !important;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
-  /* Contact Section: Fully Contained with Zero Left/Right Overflow */
+  .project-tags {
+    gap: 4px !important;
+  }
+
+  .tag {
+    font-size: 0.58rem !important;
+    padding: 2px 5px !important;
+  }
+
+  .view-pill {
+    padding: 2px 6px !important;
+    font-size: 0.58rem !important;
+  }
+
+  /* 3. Final CTA & Portrait Eye-Level Alignment ("Let's Work Together") */
   .cta-section {
-    padding: 38px 16px 28px !important;
-    min-height: auto !important;
+    padding: 24px 12px 20px !important;
+    min-height: 85vh !important;
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: center !important;
     width: 100% !important;
     max-width: 100vw !important;
     box-sizing: border-box !important;
@@ -1313,42 +1349,47 @@ body {
 
   .cta-card {
     width: 100% !important;
-    max-width: calc(100vw - 32px) !important;
+    max-width: calc(100vw - 24px) !important;
     margin: 0 auto !important;
-    padding: 32px 16px 24px !important;
-    border-radius: 18px !important;
+    padding: 22px 14px 18px !important;
+    border-radius: 16px !important;
     box-sizing: border-box !important;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
   }
 
   .cta-heading {
-    font-size: clamp(1.8rem, 7.5vw, 2.4rem) !important;
-    margin-bottom: 8px !important;
+    font-size: clamp(1.6rem, 6.8vw, 2.1rem) !important;
+    margin-bottom: 6px !important;
     word-break: break-word !important;
     line-height: 1.05 !important;
   }
 
   .cta-subtitle {
-    font-size: 0.84rem !important;
-    line-height: 1.45 !important;
-    margin: 0 auto 16px !important;
+    font-size: 0.78rem !important;
+    line-height: 1.4 !important;
+    margin: 0 auto 12px !important;
     max-width: 100% !important;
   }
 
   .email-copy-pill {
-    padding: 7px 9px 7px 16px !important;
+    padding: 6px 8px 6px 14px !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
-    gap: 10px !important;
+    gap: 8px !important;
   }
 
   .email-text {
-    font-size: 0.78rem !important;
+    font-size: 0.74rem !important;
     word-break: break-all !important;
   }
 
+  .copy-badge {
+    padding: 4px 8px !important;
+    font-size: 0.62rem !important;
+  }
+
   .scroll-indicator {
-    bottom: 10px !important;
+    bottom: 8px !important;
   }
 }
 
@@ -1358,7 +1399,7 @@ body {
   }
 
   .nav-links a:not(.nav-cta) {
-    font-size: 0.66rem !important;
+    font-size: 0.65rem !important;
   }
 }
 
