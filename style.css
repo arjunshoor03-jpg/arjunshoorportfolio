@@ -942,15 +942,8 @@ body {
 }
 
 .email-copy-pill:hover .copy-badge {
-  background: var(--accent-red);
-}
-
-.email-copy-pill:hover .copy-badge {
-  background: var(--accent-red);
-}
-
 /* ==========================================================================
-   RESPONSIVE MEDIA QUERIES
+   RESPONSIVE MEDIA QUERIES (DESKTOP PRESERVED / MOBILE OPTIMIZED)
    ========================================================================== */
 
 @media (max-width: 1100px) {
@@ -961,41 +954,109 @@ body {
   .portfolio-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-
-  .software-badges-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
-@media (max-width: 860px) {
+@media (max-width: 768px) {
+  .navbar {
+    padding: 18px 20px;
+  }
+
+  .hero-section {
+    padding: 100px 20px 50px;
+    min-height: 100vh;
+  }
+
   .hero-container {
     flex-direction: column;
-    gap: 32px;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 36px;
+  }
+
+  /* Keep left hero stack contained so character remains clearly visible on the right */
+  .hero-left-stack {
+    max-width: 65%;
+  }
+
+  .hero-right-badge {
+    margin-right: 0;
+    align-self: flex-start;
+  }
+
+  .hero-badge-card {
+    min-width: unset;
+    padding: 14px 22px;
   }
 
   .about-grid {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
 
-  .cta-card {
-    padding: 48px 24px;
+  .about-card {
+    padding: 24px 20px;
   }
-}
 
-@media (max-width: 640px) {
-  .services-grid,
-  .portfolio-grid,
   .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .stat-card {
+    padding: 20px 16px;
+    min-height: 110px;
+  }
+
+  .stat-number {
+    font-size: 2.2rem;
+    margin-bottom: 6px;
+  }
+
+  .stat-label {
+    font-size: 0.78rem;
+  }
+
+  .services-grid {
     grid-template-columns: 1fr;
   }
 
-  .nav-links a:not(.nav-cta) {
-    display: none;
+  .portfolio-grid {
+    grid-template-columns: 1fr;
   }
 
-  .guarantee-bar {
-    flex-direction: column;
-    align-items: flex-start;
+  .cta-section {
+    padding: 60px 20px 36px;
+  }
+
+  .cta-card {
+    padding: 44px 20px 36px;
+    border-radius: 22px;
+  }
+
+  .cta-heading {
+    font-size: clamp(2.2rem, 9vw, 3.2rem);
+  }
+
+  .scroll-indicator {
+    bottom: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-left-stack {
+    max-width: 70%;
+  }
+
+  .nav-links a:not(.nav-cta) {
+    font-size: 0.72rem;
+  }
+
+  .nav-slash {
+    font-size: 0.7rem;
+  }
+
+  .software-badges-grid {
+    grid-template-columns: 1fr;
   }
 }
 

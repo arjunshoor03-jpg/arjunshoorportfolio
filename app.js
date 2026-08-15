@@ -71,21 +71,28 @@
 
     if (!frameWidth || !frameHeight) return;
 
-    const frameRatio = frameWidth / frameHeight;
-    const canvasRatio = canvasWidth / canvasHeight;
+    const imageAspect = frameWidth / frameHeight;
+    const canvasAspect = canvasWidth / canvasHeight;
 
     let drawWidth, drawHeight, offsetX, offsetY;
 
-    if (canvasRatio > frameRatio) {
+    if (canvasAspect > imageAspect) {
+      // Desktop / widescreen: standard cover
       drawWidth = canvasWidth;
-      drawHeight = Math.round(canvasWidth / frameRatio);
+      drawHeight = canvasWidth / imageAspect;
       offsetX = 0;
-      offsetY = Math.round((canvasHeight - drawHeight) / 2);
+      offsetY = (canvasHeight - drawHeight) / 2;
     } else {
-      drawWidth = Math.round(canvasHeight * frameRatio);
+      // Portrait / Mobile view:
       drawHeight = canvasHeight;
-      offsetX = Math.round((canvasWidth - drawWidth) / 2);
+      drawWidth = canvasHeight * imageAspect;
       offsetY = 0;
+
+      // On mobile screens, shift the character toward the right side
+      // so hero name/title on the left doesn't cover his face
+      const isMobile = window.innerWidth <= 768;
+      const focalX = isMobile ? 0.32 : 0.5;
+      offsetX = (canvasWidth - drawWidth) * focalX;
     }
 
     ctx.imageSmoothingEnabled = true;
