@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arjun Shoor — Video Editor & Visual Storyteller</title>
+  <!-- Google Fonts: Oswald (700) & Barlow Condensed (700), Plus Jakarta Sans & Outfit for body -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Oswald:wght@600;700&family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background Fixed Canvas for 3D Scroll Animation -->
+  <canvas id="animation-canvas"></canvas>
+
+  <!-- Main Scrollable Content Overlay -->
+  <div id="content-wrapper">
+
+    <!-- Navigation Header (Exact Reference Match) -->
+    <header class="navbar">
+      <div class="nav-container">
+        <a href="#" class="nav-logo">WEBSITE PORTFOLIO</a>
+        <nav class="nav-links">
+          <a href="#work">WORK</a>
+          <span class="nav-slash">/</span>
+          <a href="#about">ABOUT</a>
+          <span class="nav-slash">/</span>
+          <a href="#services">SERVICES</a>
+          <span class="nav-slash">/</span>
+          <a href="#contact">CONTACT</a>
+          <button class="nav-menu-btn" aria-label="Toggle menu">
+            <span class="menu-bar"></span>
+            <span class="menu-bar"></span>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section (Exactly Picture 1 Design) -->
+    <section class="hero-section" id="hero">
+      <div class="hero-container">
+        
+        <!-- Left Hero Content Group (Picture 1 exact stack) -->
+        <div class="hero-left-stack">
+          
+          <!-- India Pill -->
+          <div class="availability-pill">
+            <span class="pulse-dot"></span>
+            <span class="pill-text">INDIA</span>
+          </div>
+
+          <!-- Hero Name (Exact Picture 1 typography) -->
+          <h1 class="hero-title">
+            <span class="hero-line">ARJUN</span>
+            <span class="hero-line">SHOOR</span>
+          </h1>
+
+          <!-- Subtitle -->
+          <p class="hero-subtitle">Video Editor & Visual Storyteller</p>
+
+          <!-- View Work Button with Soft White Glow -->
+          <div class="hero-cta-wrap">
+            <a href="#work" class="btn-view-work">
+              <span>VIEW WORK</span>
+              <svg class="arrow-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </a>
+          </div>
+
+        </div>
+
+          <!-- Right Freelance Projects Interactive Card (Exact Reference Match) -->
+          <div class="hero-right-badge">
+            <a href="#contact" class="hero-badge-card" id="freelance-badge">
+              <div class="badge-content default-content">
+                <span class="badge-label">Available For</span>
+                <span class="badge-title">Freelance Projects</span>
+              </div>
+              <div class="badge-content hover-content">
+                <span class="badge-label">Get In Touch</span>
+                <span class="badge-title">Let's Work <span class="arrow-anim">→</span></span>
+              </div>
+            </a>
+          </div>
+
+        <!-- Scroll Down Mouse Indicator -->
+        <div class="scroll-indicator" id="scroll-indicator">
+          <div class="mouse-icon">
+            <div class="wheel-dot"></div>
+          </div>
+          <span class="scroll-text">SCROLL DOWN</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section 1: About Me / Visual Storytelling -->
+    <section class="section about-section" id="about">
+      <div class="section-container">
+        
+        <div class="section-tag-wrap">
+          <span class="section-tag">ABOUT ME & PROCESS</span>
+          <h2 class="section-heading">VISUAL STORYTELLING</h2>
+        </div>
+
+        <div class="about-grid">
+          
+          <!-- Left Column: Bio, Highlight Box, Software Badges (Exact Reference Text) -->
+          <div class="about-left-col">
+            <div class="about-card glass-card">
+              <p class="about-text">
+                I’m a <strong>Video Editor and Lifestyle Content Creator</strong> with <strong>3 years of video-editing experience</strong> and <strong>1 year of content-creation experience</strong>. I create talking-head, lifestyle, humor-based, and story-driven content.
+              </p>
+              <p class="about-text">
+                My own content has generated <strong>12M+ total views</strong>, giving me a strong understanding of audience retention, pacing, visual storytelling, and content strategy.
+              </p>
+
+              <!-- Red Accent Highlight Box -->
+              <div class="quote-glow-box">
+                <p class="quote-text">
+                  I focus on using editing as a storytelling tool — making content engaging, clear, well-paced, and perfectly suited to the target audience.
+                </p>
+              </div>
+
+              <!-- Software Badges (4 Authentic Software Tools) -->
+              <div class="software-tools-wrap">
+                <span class="tools-label">PRIMARY SOFTWARE & TOOLS:</span>
+                <div class="software-badges-grid">
+                  
+                  <!-- Premiere Pro -->
+                  <div class="software-badge">
+                    <div class="app-icon pr-app-icon">
+                      <span>Pr</span>
+                    </div>
+                    <span>Adobe Premiere Pro</span>
+                  </div>
+
+                  <!-- After Effects -->
+                  <div class="software-badge">
+                    <div class="app-icon ae-app-icon">
+                      <span>Ae</span>
+                    </div>
+                    <span>Adobe After Effects</span>
+                  </div>
+
+                  <!-- Photoshop -->
+                  <div class="software-badge">
+                    <div class="app-icon ps-app-icon">
+                      <span>Ps</span>
+                    </div>
+                    <span>Adobe Photoshop</span>
+                  </div>
+
+                  <!-- DaVinci Resolve -->
+                  <div class="software-badge">
+                    <div class="app-icon davinci-app-icon">
+                      <svg width="24" height="24" viewBox="0 0 100 100" fill="none">
+                        <defs>
+                          <linearGradient id="dv-border" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#29b6f6"/>
+                            <stop offset="50%" stop-color="#c6ff00"/>
+                            <stop offset="100%" stop-color="#ff3d71"/>
+                          </linearGradient>
+                          <radialGradient id="dv-top" cx="50%" cy="30%" r="65%">
+                            <stop offset="0%" stop-color="#80deea"/>
+                            <stop offset="100%" stop-color="#0288d1"/>
+                          </radialGradient>
+                          <radialGradient id="dv-left" cx="30%" cy="50%" r="65%">
+                            <stop offset="0%" stop-color="#f4ff81"/>
+                            <stop offset="100%" stop-color="#7cb342"/>
+                          </radialGradient>
+                          <radialGradient id="dv-right" cx="70%" cy="50%" r="65%">
+                            <stop offset="0%" stop-color="#ff8a80"/>
+                            <stop offset="100%" stop-color="#d81b60"/>
+                          </radialGradient>
+                        </defs>
+                        <!-- Top Petal -->
+                        <path d="M50 16 C41 16, 36 26, 43 38 L50 49 L57 38 C64 26, 59 16, 50 16 Z" fill="url(#dv-top)"/>
+                        <!-- Left Petal -->
+                        <path d="M24 62 C18 53, 24 43, 37 46 L49 50 L40 61 C31 71, 22 69, 24 62 Z" fill="url(#dv-left)"/>
+                        <!-- Right Petal -->
+                        <path d="M76 62 C73 69, 64 71, 55 61 L46 50 L58 46 C71 43, 77 53, 76 62 Z" fill="url(#dv-right)"/>
+                        <!-- Center Core -->
+                        <circle cx="47" cy="49" r="4" fill="#0f141c"/>
+                      </svg>
+                    </div>
+                    <span>DaVinci Resolve</span>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Right Column: 2x2 Metric Stats Grid (Exact Reference Match) -->
+          <div class="about-right-col">
+            <div class="stats-grid">
+              
+              <div class="stat-card glass-card">
+                <h3 class="stat-number">3+</h3>
+                <p class="stat-label">Years of Video Editing Experience</p>
+              </div>
+
+              <div class="stat-card glass-card">
+                <h3 class="stat-number">50+</h3>
+                <p class="stat-label">Clients Worked With</p>
+              </div>
+
+              <div class="stat-card glass-card">
+                <h3 class="stat-number">12M+</h3>
+                <p class="stat-label">Total Views Generated (Own Content)</p>
+              </div>
+
+              <div class="stat-card glass-card">
+                <h3 class="stat-number">100%</h3>
+                <p class="stat-label">Client Satisfaction</p>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section 2: What I Deliver (Services) -->
+    <section class="section services-section" id="services">
+      <div class="section-container">
+        
+        <div class="section-tag-wrap">
+          <span class="section-tag">SERVICES</span>
+          <h2 class="section-heading">WHAT I DELIVER</h2>
+        </div>
+
+        <div class="services-grid">
+          
+          <!-- 01 Video Editing -->
+          <div class="service-card glass-card">
+            <span class="service-num">01</span>
+            <h3 class="service-title">Video Editing</h3>
+            <p class="service-desc">Seamless cuts, pacing, narrative rhythm, audio leveling, and color correction tailored for maximum audience retention.</p>
+          </div>
+
+          <!-- 02 Short-Form Content -->
+          <div class="service-card glass-card">
+            <span class="service-num">02</span>
+            <h3 class="service-title">Short-Form Content</h3>
+            <p class="service-desc">High-retention Reels, TikToks, and YouTube Shorts engineered with dynamic hooks, kinetic captions, and sound effects.</p>
+          </div>
+
+          <!-- 03 Long-Form Editing -->
+          <div class="service-card glass-card">
+            <span class="service-num">03</span>
+            <h3 class="service-title">Long-Form Editing</h3>
+            <p class="service-desc">YouTube videos, documentaries, and podcasts edited with compelling narrative arcs that keep viewers watching till the end.</p>
+          </div>
+
+          <!-- 04 Talking-Head Editing -->
+          <div class="service-card glass-card">
+            <span class="service-num">04</span>
+            <h3 class="service-title">Talking-Head Editing</h3>
+            <p class="service-desc">Dynamic zooms, custom B-roll integration, and clean motion graphics that elevate thought-leader and educational content.</p>
+          </div>
+
+          <!-- 05 Lifestyle & Social Media -->
+          <div class="service-card glass-card">
+            <span class="service-num">05</span>
+            <h3 class="service-title">Lifestyle & Social Media</h3>
+            <p class="service-desc">Aesthetic travel, lifestyle, and brand videos with curated pacing, music syncing, and cinematic color grading palettes.</p>
+          </div>
+
+          <!-- 06 Motion Graphics -->
+          <div class="service-card glass-card">
+            <span class="service-num">06</span>
+            <h3 class="service-title">Motion Graphics</h3>
+            <p class="service-desc">Custom title animations, lower thirds, callouts, HUD elements, and kinetic typography to visualize complex ideas.</p>
+          </div>
+
+          <!-- 07 Color Grading -->
+          <div class="service-card glass-card">
+            <span class="service-num">07</span>
+            <h3 class="service-title">Color Grading</h3>
+            <p class="service-desc">Professional color grading, LUT development, shot-to-shot matching, and mood enhancement for cinema-grade visuals.</p>
+          </div>
+
+          <!-- 08 Story-Driven Editing -->
+          <div class="service-card glass-card">
+            <span class="service-num">08</span>
+            <h3 class="service-title">Story-Driven Editing</h3>
+            <p class="service-desc">Narrative structuring that evokes emotion, builds tension, and delivers memorable, high-converting viewer impact.</p>
+          </div>
+
+        </div>
+
+        <!-- Guarantee Bar -->
+        <div class="guarantee-bar glass-card">
+          <div class="guarantee-item">
+            <span class="red-dot"></span>
+            <span>Creative Quality</span>
+          </div>
+          <div class="guarantee-item">
+            <span class="red-dot"></span>
+            <span>Fast Turnaround</span>
+          </div>
+          <div class="guarantee-item">
+            <span class="red-dot"></span>
+            <span>Unlimited Revisions (Fair)</span>
+          </div>
+          <div class="guarantee-item">
+            <span class="red-dot"></span>
+            <span>Retention Optimization</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section 3: Selected Work (Portfolio) -->
+    <section class="section portfolio-section" id="work">
+      <div class="section-container">
+        
+        <div class="section-tag-wrap">
+          <span class="section-tag">PORTFOLIO</span>
+          <h2 class="section-heading">SELECTED WORK</h2>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="portfolio-filters">
+          <button class="filter-btn active" data-filter="all">All Work</button>
+          <button class="filter-btn" data-filter="short-form">Short-Form</button>
+          <button class="filter-btn" data-filter="long-form">Long-Form</button>
+        </div>
+
+        <!-- Project Cards Grid -->
+        <div class="portfolio-grid">
+          
+          <!-- Card 1 -->
+          <div class="project-card glass-card" data-category="short-form">
+            <div class="project-header">
+              <span class="project-tag">HIGH RETENTION SHORT</span>
+              <span class="project-arrow">↗</span>
+            </div>
+            <h3 class="project-title">High-Retention Talking Head</h3>
+            <p class="project-desc">Fast-paced short with dynamic zooms, kinetic typography, and sound effects designed for 85%+ audience retention.</p>
+            <div class="project-pills">
+              <span class="pill">Premiere Pro</span>
+              <span class="pill">After Effects</span>
+              <span class="pill">Sound Design</span>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="project-card glass-card" data-category="short-form">
+            <div class="project-header">
+              <span class="project-tag">COMMERCIAL / REEL</span>
+              <span class="project-arrow">↗</span>
+            </div>
+            <h3 class="project-title">Artistic Commercial Reel</h3>
+            <p class="project-desc">Cinematic brand commercial featuring seamless speed ramping, sound design, and custom color grading.</p>
+            <div class="project-pills">
+              <span class="pill">Commercial</span>
+              <span class="pill">Color Grading</span>
+              <span class="pill">Sound Design</span>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="project-card glass-card" data-category="short-form">
+            <div class="project-header">
+              <span class="project-tag">SHORT-FORM VIRAL</span>
+              <span class="project-arrow">↗</span>
+            </div>
+            <h3 class="project-title">Action Fitness Viral Short</h3>
+            <p class="project-desc">High-energy gym and fitness reel cut to music drops with animated captions, generating over 1.5M views.</p>
+            <div class="project-pills">
+              <span class="pill">Short-Form</span>
+              <span class="pill">Fitness Reel</span>
+              <span class="pill">Fast Pacing</span>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="project-card glass-card" data-category="long-form">
+            <div class="project-header">
+              <span class="project-tag">TALKING-HEAD DEEP DIVE</span>
+              <span class="project-arrow">↗</span>
+            </div>
+            <h3 class="project-title">Talking-Head Deep Dive</h3>
+            <p class="project-desc">Educational long-form YouTube video with custom motion infographics and engaging storytelling structure.</p>
+            <div class="project-pills">
+              <span class="pill">Long-Form</span>
+              <span class="pill">Motion Graphics</span>
+              <span class="pill">YouTube</span>
+            </div>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="project-card glass-card" data-category="long-form">
+            <div class="project-header">
+              <span class="project-tag">DOCUMENTARY / ESSAY</span>
+              <span class="project-arrow">↗</span>
+            </div>
+            <h3 class="project-title">Modern Tech Documentary Edit</h3>
+            <p class="project-desc">15-minute video essay with archival footage pacing, custom soundscapes, and cinematic grading.</p>
+            <div class="project-pills">
+              <span class="pill">Documentary</span>
+              <span class="pill">After Effects</span>
+              <span class="pill">Research</span>
+            </div>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="project-card glass-card" data-category="long-form">
+            <div class="project-header">
+              <span class="project-tag">PODCAST / INTERVIEW</span>
+              <span class="project-arrow">↗</span>
+            </div>
+            <h3 class="project-title">High-Engagement Talking Head</h3>
+            <p class="project-desc">Multi-camera podcast episode with clean audio leveling, auto-speaker switching, and motion highlights.</p>
+            <div class="project-pills">
+              <span class="pill">Multi-cam</span>
+              <span class="pill">Podcast</span>
+              <span class="pill">Clean Audio</span>
+            </div>
+          </div>
+
+          <!-- Card 7 -->
+          <div class="project-card glass-card" data-category="long-form">
+            <div class="project-header">
+              <span class="project-tag">DOCU-SERIES / STORY</span>
+              <span class="project-arrow">↗</span>
+            </div>
+            <h3 class="project-title">Documentary & Narrative Long-Form</h3>
+            <p class="project-desc">Full-length narrative journey detailing creative struggles and victories with emotive storytelling.</p>
+            <div class="project-pills">
+              <span class="pill">Storytelling</span>
+              <span class="pill">Color Grading</span>
+              <span class="pill">Deep Narrative</span>
+            </div>
+          </div>
+
+          <!-- Card 8 -->
+          <div class="project-card glass-card" data-category="long-form">
+            <div class="project-header">
+              <span class="project-tag">PRODUCT LAUNCH EDIT</span>
+              <span class="project-arrow">↗</span>
+            </div>
+            <h3 class="project-title">Story-Driven Long-Form Episode</h3>
+            <p class="project-desc">Product reveal episode highlighting software features through smooth UI motion and 3D graphic overlays.</p>
+            <div class="project-pills">
+              <span class="pill">Product Video</span>
+              <span class="pill">SaaS Launch</span>
+              <span class="pill">Motion Graphics</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section 4: Let's Work Together (CTA Section - Final Scroll Endpoint) -->
+    <section class="section cta-section" id="contact">
+      <div class="section-container">
+        
+        <div class="cta-card">
+          <h2 class="cta-heading">LET'S WORK TOGETHER</h2>
+          <p class="cta-subtitle">
+            Have a project in mind or need high-retention video editing? Let's collaborate and bring your creative vision to life.
+          </p>
+
+          <div class="cta-btn-wrap">
+            <button class="email-copy-pill" id="email-btn" title="Click to copy email address">
+              <span class="email-text">workarjunshoor@gmail.com</span>
+              <span class="copy-badge" id="copy-badge">COPY</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
