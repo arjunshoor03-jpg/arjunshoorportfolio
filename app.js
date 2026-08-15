@@ -96,16 +96,17 @@
       offsetY = (canvasHeight - drawHeight) / 2;
     } else {
       // Mobile / Portrait view:
-      // Fixed constant medium-sized framing locked at 0.88 scale (no dynamic zoom in/out)
+      // Constant static scale (no dynamic zoom in/out at all)
       const isMobile = window.innerWidth <= 768;
-      const scaleMultiplier = isMobile ? 0.88 : 1.0;
+      const scaleMultiplier = isMobile ? 0.90 : 1.0;
       
       drawHeight = canvasHeight * scaleMultiplier;
       drawWidth = drawHeight * imageAspect;
       offsetY = (canvasHeight - drawHeight) / 2;
 
-      // Align toward center-right so hero text on the left stays completely clear of the face
-      const focalX = isMobile ? 0.40 : 0.5;
+      // Shift subject background portrait to the right side (object-position: ~65% center)
+      // providing ideal spacing for the left-aligned hero typography
+      const focalX = isMobile ? 0.30 : 0.5;
       offsetX = (canvasWidth - drawWidth) * focalX;
     }
 
