@@ -1022,11 +1022,12 @@ body {
     line-height: 1.45 !important;
   }
 
-  /* GPU-Accelerated Lag-Free Mobile Cards */
+  /* Translucent Subtle-Blur Mobile Cards (Background Portrait Clearly Visible) */
   .glass-card {
-    background: rgba(14, 14, 18, 0.9) !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
+    background: rgba(12, 12, 16, 0.38) !important;
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
     width: 100% !important;
@@ -1242,7 +1243,7 @@ body {
     gap: 4px !important;
   }
 
-  /* About Section: Clean Layout on Mobile */
+  /* About Section: Translucent Subtle-Blur on Mobile */
   .about-grid {
     display: grid !important;
     grid-template-columns: 1fr !important;
@@ -1253,6 +1254,10 @@ body {
 
   .about-card {
     padding: 18px 14px !important;
+    background: rgba(12, 12, 16, 0.38) !important;
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
   }
 
   .about-text {
@@ -1264,6 +1269,8 @@ body {
     padding: 12px 14px !important;
     margin: 4px 0 8px !important;
     border-radius: 10px !important;
+    background: rgba(255, 42, 42, 0.08) !important;
+    border: 1px solid rgba(255, 42, 42, 0.25) !important;
   }
 
   .quote-text {
@@ -1276,7 +1283,7 @@ body {
     margin-bottom: 6px !important;
   }
 
-  /* Software Badges: 2-Column Side-by-Side Bento Grid */
+  /* Software Badges: Translucent 2-Column Side-by-Side Bento Grid */
   .software-badges-grid {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
@@ -1291,6 +1298,10 @@ body {
     gap: 7px !important;
     width: 100% !important;
     box-sizing: border-box !important;
+    background: rgba(14, 14, 20, 0.45) !important;
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
   }
 
   .app-icon {
@@ -1305,7 +1316,7 @@ body {
     height: 16px !important;
   }
 
-  /* 2x2 Metric Stats Bento Grid on Mobile */
+  /* 2x2 Metric Stats Bento Grid: Translucent Cards */
   .stats-grid {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
@@ -1318,6 +1329,10 @@ body {
     min-height: 85px !important;
     width: 100% !important;
     box-sizing: border-box !important;
+    background: rgba(12, 12, 16, 0.38) !important;
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
   }
 
   .stat-number {
@@ -1330,7 +1345,7 @@ body {
     line-height: 1.2 !important;
   }
 
-  /* What I Deliver: 2-Column Side-by-Side Bento Grid */
+  /* What I Deliver: Translucent 2-Column Side-by-Side Bento Grid */
   .services-grid {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
@@ -1349,6 +1364,10 @@ body {
     flex-direction: column !important;
     justify-content: space-between !important;
     min-height: 180px !important;
+    background: rgba(12, 12, 16, 0.38) !important;
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
   }
 
   .service-num {
@@ -1389,9 +1408,13 @@ body {
     border-radius: 10px !important;
     width: 100% !important;
     box-sizing: border-box !important;
+    background: rgba(14, 14, 20, 0.45) !important;
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
   }
 
-  /* Selected Work: 2-Column Side-by-Side Bento Grid */
+  /* Selected Work: Translucent 2-Column Side-by-Side Bento Grid */
   .portfolio-filters {
     gap: 4px !important;
     margin-bottom: 12px !important;
@@ -1420,6 +1443,10 @@ body {
     max-width: 100% !important;
     box-sizing: border-box !important;
     overflow: hidden !important;
+    background: rgba(12, 12, 16, 0.38) !important;
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
   }
 
   .project-thumbnail-wrap {
