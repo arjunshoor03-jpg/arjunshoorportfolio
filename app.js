@@ -26,11 +26,23 @@
   let lastTimestamp = performance.now();
   const DAMPING = 8.5; // Smooth exponential decay rate
 
-  // High-DPI Canvas Sizing
-  function resizeCanvas() {
-    const dpr = window.devicePixelRatio || 1;
+  // Stable High-DPI Canvas Sizing (Max DPR 2 for buttery mobile 60fps)
+  let lastWindowWidth = 0;
+  let lastWindowHeight = 0;
+
+  function resizeCanvas(force = false) {
     const width = window.innerWidth;
     const height = window.innerHeight;
+
+    // Avoid jitter on mobile when address bar collapses if width hasn't changed
+    if (!force && width === lastWindowWidth && Math.abs(height - lastWindowHeight) < 80) {
+      return;
+    }
+
+    lastWindowWidth = width;
+    lastWindowHeight = height;
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
     canvas.width = Math.round(width * dpr);
     canvas.height = Math.round(height * dpr);
@@ -41,7 +53,7 @@
     drawCurrentProgress();
   }
 
-  // Draw frame on canvas with object-fit: cover
+  // Draw frame on canvas with object-fit: cover and mobile-aware alignment
   function drawFrame(frameIndex) {
     const clampedIndex = Math.max(0, Math.min(frameCount - 1, frameIndex));
     
@@ -83,15 +95,17 @@
       offsetX = 0;
       offsetY = (canvasHeight - drawHeight) / 2;
     } else {
-      // Portrait / Mobile view:
-      drawHeight = canvasHeight;
-      drawWidth = canvasHeight * imageAspect;
-      offsetY = 0;
-
-      // On mobile screens (portrait view), shift the character toward the right side
-      // so hero text on the left doesn't cover his face
+      // Mobile / Portrait view:
+      // Slightly scale subject image for mobile so it fits comfortably within screen bounds without oversized zoom
       const isMobile = window.innerWidth <= 768;
-      const focalX = isMobile ? 0.38 : 0.5;
+      const scaleMultiplier = isMobile ? 0.94 : 1.0;
+      
+      drawHeight = canvasHeight * scaleMultiplier;
+      drawWidth = drawHeight * imageAspect;
+      offsetY = (canvasHeight - drawHeight) / 2;
+
+      // Align toward center-right so hero text on the left stays completely clear of the face
+      const focalX = isMobile ? 0.40 : 0.5;
       offsetX = (canvasWidth - drawWidth) * focalX;
     }
 
