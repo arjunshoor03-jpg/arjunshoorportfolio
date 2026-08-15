@@ -88,10 +88,10 @@
       drawWidth = canvasHeight * imageAspect;
       offsetY = 0;
 
-      // On mobile screens, shift the character toward the right side
-      // so hero name/title on the left doesn't cover his face
+      // On mobile screens (portrait view), shift the character toward the right side
+      // so hero text on the left doesn't cover his face
       const isMobile = window.innerWidth <= 768;
-      const focalX = isMobile ? 0.32 : 0.5;
+      const focalX = isMobile ? 0.38 : 0.5;
       offsetX = (canvasWidth - drawWidth) * focalX;
     }
 
