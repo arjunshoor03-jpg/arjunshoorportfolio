@@ -264,9 +264,18 @@
   function openVideoModal(videoSrc, title, category) {
     if (!videoModal || !modalVideoPlayer) return;
 
+    const modalContainer = videoModal.querySelector('.video-modal-container');
+    if (modalContainer) {
+      if (category === 'long-form') {
+        modalContainer.style.maxWidth = window.innerWidth <= 768 ? '94%' : '880px';
+      } else {
+        modalContainer.style.maxWidth = window.innerWidth <= 768 ? '360px' : '460px';
+      }
+    }
+
     modalVideoPlayer.src = videoSrc;
     if (modalTitle) modalTitle.textContent = title || 'Video Preview';
-    if (modalCategory) modalCategory.textContent = category ? category.toUpperCase() : 'SHORT-FORM';
+    if (modalCategory) modalCategory.textContent = category === 'long-form' ? 'LONG-FORM CONTENT' : 'SHORT-FORM CONTENT';
 
     videoModal.classList.add('active');
     videoModal.setAttribute('aria-hidden', 'false');
