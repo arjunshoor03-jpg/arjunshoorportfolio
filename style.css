@@ -223,35 +223,8 @@ body {
   text-align: left;
 }
 
-/* Top Pill (Picture 1) */
 .availability-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 18px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 9999px;
-  margin-bottom: 24px;
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
-}
-
-.pulse-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: #ff3333;
-  box-shadow: 0 0 10px #ff3333;
-}
-
-.pill-text {
-  font-family: var(--font-body);
-  font-size: 0.84rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  color: #d1d1d8;
-  text-transform: uppercase;
+  display: none !important;
 }
 
 /* Hero Title: Exact typography slightly enlarged proportionally */
@@ -1438,14 +1411,7 @@ body {
     width: auto !important;
   }
 
-  .availability-pill {
-    padding: 6px 14px !important;
-    margin-bottom: 14px !important;
-  }
 
-  .pill-text {
-    font-size: 0.76rem !important;
-  }
 
   /* Sized-Up Hero Typography on Mobile */
   .hero-title {
