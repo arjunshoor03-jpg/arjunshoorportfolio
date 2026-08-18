@@ -1811,8 +1811,9 @@ body {
     font-size: 0.64rem !important;
   }
 
+  /* Hide scroll down mouse cursor animation completely on mobile */
   .scroll-indicator {
-    bottom: 8px !important;
+    display: none !important;
   }
 }
 
