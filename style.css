@@ -366,6 +366,36 @@ body {
   gap: 6px;
 }
 
+.badge-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.badge-list li {
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #000000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.25;
+}
+
+.badge-list li::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background-color: var(--accent-red, #ff2a2a);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
 .hover-content .badge-title span {
   display: inline-block;
   transition: transform 0.25s ease;
@@ -1463,6 +1493,20 @@ body {
     font-size: 0.94rem !important;
     font-weight: 800 !important;
     gap: 4px !important;
+  }
+
+  .badge-list {
+    gap: 2px !important;
+  }
+
+  .badge-list li {
+    font-size: 0.88rem !important;
+    gap: 6px !important;
+  }
+
+  .badge-list li::before {
+    width: 5px !important;
+    height: 5px !important;
   }
 
   /* About Section: Translucent Subtle-Blur on Mobile */
