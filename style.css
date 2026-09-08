@@ -807,6 +807,12 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
+  align-items: start;
+}
+
+/* Ensure Long-Form cards start on their own row on desktop so both sit side-by-side with identical compact height */
+.portfolio-grid .project-card[data-category="long-form"]:first-of-type {
+  grid-column-start: 1;
 }
 
 .project-card {
@@ -817,6 +823,7 @@ body {
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
+  height: fit-content;
 }
 
 .project-card:hover {
@@ -1701,6 +1708,11 @@ body {
     gap: 8px !important;
     width: 100% !important;
     max-width: 100% !important;
+    align-items: start !important;
+  }
+
+  .portfolio-grid .project-card[data-category="long-form"]:first-of-type {
+    grid-column-start: auto !important;
   }
 
   .project-card {
@@ -1714,6 +1726,7 @@ body {
     -webkit-backdrop-filter: blur(5px) !important;
     border: 1px solid rgba(255, 255, 255, 0.15) !important;
     padding: 8px !important;
+    height: fit-content !important;
   }
 
   .project-thumbnail-wrap {
