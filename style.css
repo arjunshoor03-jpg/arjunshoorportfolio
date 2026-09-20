@@ -662,6 +662,76 @@ body {
   justify-content: center;
 }
 
+/* AI Software Group */
+.ai-tools-group {
+  margin-top: 18px;
+}
+
+.tools-label-ai {
+  margin-top: 4px;
+  margin-bottom: 12px;
+}
+
+/* 3-column layout on desktop for AI software */
+.ai-badges-grid {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.tool-badge-img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  display: block;
+}
+
+/* OpenArt AI Squircle */
+.openart-app-icon {
+  background: #000000;
+  border: 1.5px solid rgba(255, 255, 255, 0.28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.openart-app-icon .tool-badge-img {
+  width: 22px;
+  height: 22px;
+}
+
+/* InVideo AI Squircle */
+.invideo-app-icon {
+  background: #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
+}
+
+.invideo-app-icon .tool-badge-img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Higgsfield AI Squircle */
+.higgsfield-app-icon {
+  background: #d0fe17;
+  border: 1.5px solid #d0fe17;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 12px rgba(208, 254, 23, 0.35);
+  overflow: hidden;
+}
+
+.higgsfield-app-icon .tool-badge-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 7px;
+  object-fit: cover;
+}
+
 /* Stats Grid: Exact Reference Match */
 .stats-grid {
   display: grid;
@@ -1562,6 +1632,24 @@ body {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 8px !important;
     width: 100% !important;
+  }
+
+  .ai-badges-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .ai-badges-grid .software-badge:last-child {
+    grid-column: span 2 !important;
+  }
+
+  .tool-badge-img {
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  .higgsfield-app-icon .tool-badge-img {
+    width: 100% !important;
+    height: 100% !important;
   }
 
   .software-badge {
