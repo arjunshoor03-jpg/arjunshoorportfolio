@@ -8,6 +8,9 @@
     desynchronized: true
   });
 
+  // Device Detection & Adaptive Performance Mode
+  const isMobile = window.innerWidth <= 768 || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
   // Full 118-frame sequence: maps scroll progress from Frame 1 to Frame 118
   const frameCount = 118;
   const frames = new Array(frameCount);
@@ -26,27 +29,23 @@
   let lastTimestamp = performance.now();
   const DAMPING = 8.5; // Smooth exponential decay rate
 
-  // Stable High-DPI Canvas Sizing (Max DPR 2 for buttery mobile 60fps)
+  // Stable Canvas Sizing (Max DPR 1 on mobile to prevent GPU crash, 1.5 on desktop)
   let lastWindowWidth = 0;
-  let lastLockedHeight = 0;
+  let lastWindowHeight = 0;
 
   function resizeCanvas(force = false) {
     const width = window.innerWidth;
-    const isMobile = width <= 768;
-    
-    // On mobile, lock height to the primary viewport height to avoid URL-bar collapse jumps
-    const height = (isMobile && lastLockedHeight > 0 && !force && Math.abs(width - lastWindowWidth) < 20)
-      ? lastLockedHeight
-      : window.innerHeight;
+    const height = window.innerHeight;
 
-    if (!force && width === lastWindowWidth && Math.abs(height - lastLockedHeight) < 10) {
+    // Ignore mobile address-bar collapse height fluctuations to prevent thrashing
+    if (!force && width === lastWindowWidth && Math.abs(height - lastWindowHeight) < 80) {
       return;
     }
 
     lastWindowWidth = width;
-    lastLockedHeight = height;
+    lastWindowHeight = height;
 
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 1.5);
 
     canvas.width = Math.round(width * dpr);
     canvas.height = Math.round(height * dpr);
@@ -100,8 +99,6 @@
       offsetY = (canvasHeight - drawHeight) / 2;
     } else {
       // Mobile / Portrait view:
-      // Constant static scale (no dynamic zoom in/out at all)
-      const isMobile = window.innerWidth <= 768;
       const scaleMultiplier = isMobile ? 0.90 : 1.0;
       
       drawHeight = canvasHeight * scaleMultiplier;
@@ -109,13 +106,12 @@
       offsetY = (canvasHeight - drawHeight) / 2;
 
       // Shift subject background portrait to the right side (object-position: ~65% center)
-      // providing ideal spacing for the left-aligned hero typography
       const focalX = isMobile ? 0.30 : 0.5;
       offsetX = (canvasWidth - drawWidth) * focalX;
     }
 
     ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = 'high';
+    ctx.imageSmoothingQuality = isMobile ? 'low' : 'high';
     ctx.fillStyle = '#000000';
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
     ctx.drawImage(frame, offsetX, offsetY, drawWidth, drawHeight);
@@ -172,8 +168,10 @@
     requestAnimationFrame(animate);
   }
 
-  // Frame Preload Pipeline with ImageBitmap GPU conversion
+  // Memory-Safe Frame Preload Pipeline with Mobile Downscaling
   async function loadAndDecodeFrame(index) {
+    if (frames[index]) return;
+
     try {
       const img = new Image();
       img.src = getFramePath(index);
@@ -187,9 +185,13 @@
         });
       }
 
+      // On mobile, downscale to 960x540 to avoid iOS WebKit 200MB memory crash limit
       if (window.createImageBitmap) {
         try {
-          const bitmap = await createImageBitmap(img);
+          const bitmapOptions = isMobile
+            ? { resizeWidth: 960, resizeHeight: 540, resizeQuality: 'medium' }
+            : {};
+          const bitmap = await createImageBitmap(img, bitmapOptions);
           frames[index] = bitmap;
         } catch (e) {
           frames[index] = img;
@@ -205,22 +207,36 @@
         drawFrame(index);
       }
     } catch (err) {
-      // Fallback
+      // Fallback silently if frame fails
     }
   }
 
   async function preloadAllFrames() {
-    // Instant paint frame 0
+    // 1. Instant paint frame 0
     await loadAndDecodeFrame(0);
 
-    // Stream remaining frames in batches of 10
-    const batchSize = 10;
-    for (let i = 1; i < frameCount; i += batchSize) {
-      const batch = [];
-      for (let j = i; j < Math.min(i + batchSize, frameCount); j++) {
-        batch.push(loadAndDecodeFrame(j));
-      }
+    // 2. Mobile strategy: sample every 3rd frame (approx 40 keyframes = smooth animation without WebKit RAM exhaustion)
+    // Desktop strategy: load all 118 frames
+    const frameStep = isMobile ? 3 : 1;
+    const targetIndices = [];
+
+    for (let i = 1; i < frameCount; i += frameStep) {
+      targetIndices.push(i);
+    }
+    // Always include the last frame so scroll animation finishes cleanly
+    if (!targetIndices.includes(frameCount - 1)) {
+      targetIndices.push(frameCount - 1);
+    }
+
+    // Load sequentially in small batches of 4 to keep network and main thread silky smooth
+    const batchSize = isMobile ? 4 : 8;
+    for (let i = 0; i < targetIndices.length; i += batchSize) {
+      const batch = targetIndices.slice(i, i + batchSize).map(idx => loadAndDecodeFrame(idx));
       await Promise.all(batch);
+      // Small pause between batches on mobile to let garbage collector run and avoid memory spikes
+      if (isMobile) {
+        await new Promise(r => setTimeout(r, 40));
+      }
     }
   }
 
@@ -237,6 +253,7 @@
   const modalCloseBtn = document.getElementById('modal-close-btn');
   const modalTitle = document.getElementById('modal-title');
   const modalCategory = document.getElementById('modal-category');
+  const modalQualityBadge = document.getElementById('modal-quality-badge');
 
   // Filter Tabs
   filterButtons.forEach(btn => {
@@ -267,7 +284,7 @@
     const modalContainer = videoModal.querySelector('.video-modal-container');
     if (modalContainer) {
       if (category === 'long-form') {
-        modalContainer.style.maxWidth = window.innerWidth <= 768 ? '94%' : '880px';
+        modalContainer.style.maxWidth = window.innerWidth <= 768 ? '95%' : '920px';
       } else {
         modalContainer.style.maxWidth = window.innerWidth <= 768 ? '360px' : '460px';
       }
@@ -276,6 +293,7 @@
     modalVideoPlayer.src = videoSrc;
     if (modalTitle) modalTitle.textContent = title || 'Video Preview';
     if (modalCategory) modalCategory.textContent = category === 'long-form' ? 'LONG-FORM CONTENT' : 'SHORT-FORM CONTENT';
+    if (modalQualityBadge) modalQualityBadge.textContent = '1080P FULL HD';
 
     videoModal.classList.add('active');
     videoModal.setAttribute('aria-hidden', 'false');
