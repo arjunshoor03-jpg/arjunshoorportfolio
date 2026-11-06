@@ -45,7 +45,8 @@
     lastWindowWidth = width;
     lastWindowHeight = height;
 
-    const dpr = isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 1.5);
+    const isUltraWideScreen = (width / height) >= 2.0 || width >= 3400;
+    const dpr = isMobile ? 1 : Math.min(window.devicePixelRatio || 1, isUltraWideScreen ? 1.25 : 1.5);
 
     canvas.width = Math.round(width * dpr);
     canvas.height = Math.round(height * dpr);
@@ -54,6 +55,22 @@
 
     lastRenderedIndex = -1;
     drawCurrentProgress();
+  }
+
+  // Offscreen canvas for zero-seam alpha feathering on ultra-wide viewports
+  let featherCanvas = null;
+  let featherCtx = null;
+
+  function getFeatherContext(w, h) {
+    if (!featherCanvas) {
+      featherCanvas = document.createElement('canvas');
+    }
+    if (featherCanvas.width !== w || featherCanvas.height !== h) {
+      featherCanvas.width = w;
+      featherCanvas.height = h;
+      featherCtx = featherCanvas.getContext('2d', { alpha: true });
+    }
+    return featherCtx;
   }
 
   // Draw frame on canvas with object-fit: cover and mobile-aware alignment
@@ -91,12 +108,96 @@
 
     let drawWidth, drawHeight, offsetX, offsetY;
 
-    if (canvasAspect > imageAspect) {
+    // Detect Super Ultra-Wide (Samsung Odyssey G9 32:9 ~ 3.55, 21:9 ~ 2.33)
+    const isUltraWide = canvasAspect >= 2.0;
+
+    if (isUltraWide) {
+      // 32:9 Samsung Odyssey G9 & Super Ultra-wide Optimization:
+      // 1. Maintain true character proportions: fit height so character's head,
+      //    forehead, eyes, face, and shoulders are NEVER cropped vertically by top of monitor.
+      drawHeight = canvasHeight;
+      drawWidth = Math.round(drawHeight * imageAspect);
+      offsetY = 0;
+
+      // 2. Horizontal placement: place character in center stage (leaving left stage completely clear for hero text)
+      offsetX = Math.round((canvasWidth - drawWidth) * 0.54);
+
+      // 3. Paint continuous, seamless red studio backdrop across entire 5120px display
+      // Center the radial spotlight behind the character
+      const spotX = offsetX + drawWidth * 0.46;
+      const spotY = canvasHeight * 0.46;
+      const maxRadius = Math.max(canvasWidth * 0.68, 3000);
+
+      const ambientBg = ctx.createRadialGradient(
+        spotX, spotY, 60,
+        spotX, spotY, maxRadius
+      );
+      ambientBg.addColorStop(0, '#ad0005');    // Visually rich, vibrant illuminated core red
+      ambientBg.addColorStop(0.22, '#850003'); // Smooth mid-red transition
+      ambientBg.addColorStop(0.45, '#520002'); // Atmospheric deep red
+      ambientBg.addColorStop(0.72, '#280001'); // Dark burgundy
+      ambientBg.addColorStop(0.90, '#120001'); // Subtle dark edge vignette
+      ambientBg.addColorStop(1.0, '#040000');  // Outer corner dark vignette
+
+      ctx.fillStyle = ambientBg;
+      ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+
+      // 4. Render character frame with smooth alpha-feathered outer edges
+      // This completely eliminates harsh vertical boundaries and rectangular patches
+      const fCtx = getFeatherContext(drawWidth, drawHeight);
+      if (fCtx) {
+        fCtx.clearRect(0, 0, drawWidth, drawHeight);
+        fCtx.imageSmoothingEnabled = true;
+        fCtx.imageSmoothingQuality = 'high';
+        fCtx.drawImage(frame, 0, 0, drawWidth, drawHeight);
+
+        // Alpha feather the outer 22% on left and right edges into transparency
+        fCtx.globalCompositeOperation = 'destination-in';
+        const maskGrad = fCtx.createLinearGradient(0, 0, drawWidth, 0);
+        const edgePct = 0.22;
+        maskGrad.addColorStop(0, 'rgba(0, 0, 0, 0)');
+        maskGrad.addColorStop(edgePct * 0.35, 'rgba(0, 0, 0, 0.18)');
+        maskGrad.addColorStop(edgePct * 0.70, 'rgba(0, 0, 0, 0.65)');
+        maskGrad.addColorStop(edgePct, 'rgba(0, 0, 0, 1)');
+        maskGrad.addColorStop(1 - edgePct, 'rgba(0, 0, 0, 1)');
+        maskGrad.addColorStop(1 - edgePct * 0.70, 'rgba(0, 0, 0, 0.65)');
+        maskGrad.addColorStop(1 - edgePct * 0.35, 'rgba(0, 0, 0, 0.18)');
+        maskGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+        fCtx.fillStyle = maskGrad;
+        fCtx.fillRect(0, 0, drawWidth, drawHeight);
+        fCtx.globalCompositeOperation = 'source-over';
+
+        // Draw feathered frame onto the continuous background
+        ctx.drawImage(featherCanvas, offsetX, offsetY);
+      } else {
+        ctx.drawImage(frame, offsetX, offsetY, drawWidth, drawHeight);
+      }
+
+      // 5. Subtle dark/blackish vignette towards the outer corners of the 49" curved screen
+      const cornerVignette = ctx.createRadialGradient(
+        canvasWidth * 0.5, canvasHeight * 0.5, canvasHeight * 0.45,
+        canvasWidth * 0.5, canvasHeight * 0.5, Math.hypot(canvasWidth * 0.5, canvasHeight * 0.5)
+      );
+      cornerVignette.addColorStop(0, 'rgba(0, 0, 0, 0)');
+      cornerVignette.addColorStop(0.68, 'rgba(0, 0, 0, 0)');
+      cornerVignette.addColorStop(0.88, 'rgba(0, 0, 0, 0.38)');
+      cornerVignette.addColorStop(1.0, 'rgba(0, 0, 0, 0.75)');
+
+      ctx.fillStyle = cornerVignette;
+      ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+    } else if (canvasAspect > imageAspect) {
       // Desktop / widescreen: standard cover
       drawWidth = canvasWidth;
       drawHeight = canvasWidth / imageAspect;
       offsetX = 0;
       offsetY = (canvasHeight - drawHeight) / 2;
+
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = isMobile ? 'low' : 'high';
+      ctx.fillStyle = '#000000';
+      ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+      ctx.drawImage(frame, offsetX, offsetY, drawWidth, drawHeight);
     } else {
       // Mobile / Portrait view:
       const scaleMultiplier = isMobile ? 0.90 : 1.0;
@@ -108,13 +209,13 @@
       // Shift subject background portrait to the right side (object-position: ~65% center)
       const focalX = isMobile ? 0.30 : 0.5;
       offsetX = (canvasWidth - drawWidth) * focalX;
-    }
 
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = isMobile ? 'low' : 'high';
-    ctx.fillStyle = '#000000';
-    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
-    ctx.drawImage(frame, offsetX, offsetY, drawWidth, drawHeight);
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = isMobile ? 'low' : 'high';
+      ctx.fillStyle = '#000000';
+      ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+      ctx.drawImage(frame, offsetX, offsetY, drawWidth, drawHeight);
+    }
 
     lastRenderedIndex = clampedIndex;
   }
@@ -283,10 +384,11 @@
 
     const modalContainer = videoModal.querySelector('.video-modal-container');
     if (modalContainer) {
+      const isUltraWideModal = (window.innerWidth / window.innerHeight) >= 2.0 || window.innerWidth >= 3400;
       if (category === 'long-form') {
-        modalContainer.style.maxWidth = window.innerWidth <= 768 ? '95%' : '920px';
+        modalContainer.style.maxWidth = window.innerWidth <= 768 ? '95%' : (isUltraWideModal ? '1320px' : '920px');
       } else {
-        modalContainer.style.maxWidth = window.innerWidth <= 768 ? '360px' : '460px';
+        modalContainer.style.maxWidth = window.innerWidth <= 768 ? '360px' : (isUltraWideModal ? '520px' : '460px');
       }
     }
 
