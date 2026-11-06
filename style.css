@@ -2022,6 +2022,33 @@ body {
 @media screen and (min-aspect-ratio: 2/1) and (min-width: 1800px),
        screen and (min-aspect-ratio: 32/11) {
   
+  /* Anti-Flicker & GPU Layer Isolation for 5120x1440 Super Ultrawide Viewports */
+  #animation-canvas {
+    will-change: auto;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .portfolio-section {
+    contain: layout;
+  }
+
+  .portfolio-grid .project-card {
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    contain: layout style;
+  }
+
+  .glass-card {
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
   /* 1. Header & Navigation (Edge-to-edge balance across 49" curve) */
   .navbar {
     padding: 32px 100px;

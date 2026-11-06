@@ -5,7 +5,7 @@
   const canvas = document.getElementById('animation-canvas');
   const ctx = canvas.getContext('2d', {
     alpha: false,
-    desynchronized: true
+    desynchronized: false
   });
 
   // Device Detection & Adaptive Performance Mode
@@ -54,12 +54,19 @@
     canvas.style.height = height + 'px';
 
     lastRenderedIndex = -1;
+    cachedGradKey = '';
     drawCurrentProgress();
   }
 
   // Offscreen canvas for zero-seam alpha feathering on ultra-wide viewports
   let featherCanvas = null;
   let featherCtx = null;
+
+  // Cached gradients for ultra-wide rendering (prevents recreating CanvasGradients on every frame)
+  let cachedAmbientBg = null;
+  let cachedMaskGrad = null;
+  let cachedCornerVignette = null;
+  let cachedGradKey = '';
 
   function getFeatherContext(w, h) {
     if (!featherCanvas) {
@@ -128,24 +135,56 @@
       const spotY = canvasHeight * 0.46;
       const maxRadius = Math.max(canvasWidth * 0.68, 3000);
 
-      const ambientBg = ctx.createRadialGradient(
-        spotX, spotY, 60,
-        spotX, spotY, maxRadius
-      );
-      ambientBg.addColorStop(0, '#ad0005');    // Visually rich, vibrant illuminated core red
-      ambientBg.addColorStop(0.22, '#850003'); // Smooth mid-red transition
-      ambientBg.addColorStop(0.45, '#520002'); // Atmospheric deep red
-      ambientBg.addColorStop(0.72, '#280001'); // Dark burgundy
-      ambientBg.addColorStop(0.90, '#120001'); // Subtle dark edge vignette
-      ambientBg.addColorStop(1.0, '#040000');  // Outer corner dark vignette
+      const fCtx = getFeatherContext(drawWidth, drawHeight);
 
-      ctx.fillStyle = ambientBg;
+      // Cache gradients across frames to eliminate per-frame GPU allocation and garbage collection stalls
+      const currentGradKey = `${canvasWidth}_${canvasHeight}_${drawWidth}_${drawHeight}_${offsetX}`;
+      if (cachedGradKey !== currentGradKey || !cachedAmbientBg || !cachedMaskGrad || !cachedCornerVignette) {
+        cachedGradKey = currentGradKey;
+
+        // Ambient red studio backdrop
+        cachedAmbientBg = ctx.createRadialGradient(
+          spotX, spotY, 60,
+          spotX, spotY, maxRadius
+        );
+        cachedAmbientBg.addColorStop(0, '#ad0005');    // Visually rich, vibrant illuminated core red
+        cachedAmbientBg.addColorStop(0.22, '#850003'); // Smooth mid-red transition
+        cachedAmbientBg.addColorStop(0.45, '#520002'); // Atmospheric deep red
+        cachedAmbientBg.addColorStop(0.72, '#280001'); // Dark burgundy
+        cachedAmbientBg.addColorStop(0.90, '#120001'); // Subtle dark edge vignette
+        cachedAmbientBg.addColorStop(1.0, '#040000');  // Outer corner dark vignette
+
+        // Alpha feather mask for character outer edges
+        if (fCtx) {
+          cachedMaskGrad = fCtx.createLinearGradient(0, 0, drawWidth, 0);
+          const edgePct = 0.22;
+          cachedMaskGrad.addColorStop(0, 'rgba(0, 0, 0, 0)');
+          cachedMaskGrad.addColorStop(edgePct * 0.35, 'rgba(0, 0, 0, 0.18)');
+          cachedMaskGrad.addColorStop(edgePct * 0.70, 'rgba(0, 0, 0, 0.65)');
+          cachedMaskGrad.addColorStop(edgePct, 'rgba(0, 0, 0, 1)');
+          cachedMaskGrad.addColorStop(1 - edgePct, 'rgba(0, 0, 0, 1)');
+          cachedMaskGrad.addColorStop(1 - edgePct * 0.70, 'rgba(0, 0, 0, 0.65)');
+          cachedMaskGrad.addColorStop(1 - edgePct * 0.35, 'rgba(0, 0, 0, 0.18)');
+          cachedMaskGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        }
+
+        // Subtle dark/blackish vignette towards the outer corners of the 49" curved screen
+        cachedCornerVignette = ctx.createRadialGradient(
+          canvasWidth * 0.5, canvasHeight * 0.5, canvasHeight * 0.45,
+          canvasWidth * 0.5, canvasHeight * 0.5, Math.hypot(canvasWidth * 0.5, canvasHeight * 0.5)
+        );
+        cachedCornerVignette.addColorStop(0, 'rgba(0, 0, 0, 0)');
+        cachedCornerVignette.addColorStop(0.68, 'rgba(0, 0, 0, 0)');
+        cachedCornerVignette.addColorStop(0.88, 'rgba(0, 0, 0, 0.38)');
+        cachedCornerVignette.addColorStop(1.0, 'rgba(0, 0, 0, 0.75)');
+      }
+
+      ctx.fillStyle = cachedAmbientBg;
       ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
       // 4. Render character frame with smooth alpha-feathered outer edges
       // This completely eliminates harsh vertical boundaries and rectangular patches
-      const fCtx = getFeatherContext(drawWidth, drawHeight);
-      if (fCtx) {
+      if (fCtx && cachedMaskGrad) {
         fCtx.clearRect(0, 0, drawWidth, drawHeight);
         fCtx.imageSmoothingEnabled = true;
         fCtx.imageSmoothingQuality = 'high';
@@ -153,18 +192,7 @@
 
         // Alpha feather the outer 22% on left and right edges into transparency
         fCtx.globalCompositeOperation = 'destination-in';
-        const maskGrad = fCtx.createLinearGradient(0, 0, drawWidth, 0);
-        const edgePct = 0.22;
-        maskGrad.addColorStop(0, 'rgba(0, 0, 0, 0)');
-        maskGrad.addColorStop(edgePct * 0.35, 'rgba(0, 0, 0, 0.18)');
-        maskGrad.addColorStop(edgePct * 0.70, 'rgba(0, 0, 0, 0.65)');
-        maskGrad.addColorStop(edgePct, 'rgba(0, 0, 0, 1)');
-        maskGrad.addColorStop(1 - edgePct, 'rgba(0, 0, 0, 1)');
-        maskGrad.addColorStop(1 - edgePct * 0.70, 'rgba(0, 0, 0, 0.65)');
-        maskGrad.addColorStop(1 - edgePct * 0.35, 'rgba(0, 0, 0, 0.18)');
-        maskGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-
-        fCtx.fillStyle = maskGrad;
+        fCtx.fillStyle = cachedMaskGrad;
         fCtx.fillRect(0, 0, drawWidth, drawHeight);
         fCtx.globalCompositeOperation = 'source-over';
 
@@ -175,16 +203,7 @@
       }
 
       // 5. Subtle dark/blackish vignette towards the outer corners of the 49" curved screen
-      const cornerVignette = ctx.createRadialGradient(
-        canvasWidth * 0.5, canvasHeight * 0.5, canvasHeight * 0.45,
-        canvasWidth * 0.5, canvasHeight * 0.5, Math.hypot(canvasWidth * 0.5, canvasHeight * 0.5)
-      );
-      cornerVignette.addColorStop(0, 'rgba(0, 0, 0, 0)');
-      cornerVignette.addColorStop(0.68, 'rgba(0, 0, 0, 0)');
-      cornerVignette.addColorStop(0.88, 'rgba(0, 0, 0, 0.38)');
-      cornerVignette.addColorStop(1.0, 'rgba(0, 0, 0, 0.75)');
-
-      ctx.fillStyle = cornerVignette;
+      ctx.fillStyle = cachedCornerVignette;
       ctx.fillRect(0, 0, canvasWidth, canvasHeight);
     } else if (canvasAspect > imageAspect) {
       // Desktop / widescreen: standard cover
@@ -305,7 +324,9 @@
         initialFrameLoaded = true;
         drawFrame(0);
       } else if (Math.round(currentProgress * (frameCount - 1)) === index) {
-        drawFrame(index);
+        // Invalidate lastRenderedIndex so the requestAnimationFrame loop renders the decoded frame
+        // synchronously on the next display refresh, avoiding thread contention and mid-frame tears
+        lastRenderedIndex = -1;
       }
     } catch (err) {
       // Fallback silently if frame fails
